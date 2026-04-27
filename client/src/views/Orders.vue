@@ -27,6 +27,41 @@
         </div>
       </div>
 
+      <!-- Restock Orders Section — only shown when restock orders exist -->
+      <div v-if="restockOrders.length > 0" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{ t('orders.restock.heading') }}</h3>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ t('orders.table.orderNumber') }}</th>
+                <th>{{ t('orders.table.items') }}</th>
+                <th>{{ t('orders.restock.totalCost') }}</th>
+                <th>{{ t('orders.restock.submitted') }}</th>
+                <th>{{ t('orders.table.expectedDelivery') }}</th>
+                <th>{{ t('orders.restock.leadTime') }}</th>
+                <th>{{ t('orders.table.status') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="o in restockOrders" :key="o.id">
+                <td><strong>{{ o.order_number }}</strong></td>
+                <td>{{ t('orders.itemsCount', { count: o.items.length }) }}</td>
+                <td><strong>{{ formatRestockCurrency(o.total_cost) }}</strong></td>
+                <td>{{ formatDate(o.submitted_at) }}</td>
+                <td>{{ formatDate(o.expected_delivery) }}</td>
+                <td>{{ o.lead_time_days }} {{ t('restocking.days') }}</td>
+                <td>
+                  <span class="badge info">{{ o.status }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">{{ t('orders.allOrders') }} ({{ orders.length }})</h3>
@@ -95,6 +130,7 @@ export default {
     const loading = ref(true)
     const error = ref(null)
     const orders = ref([])
+    const restockOrders = ref([])
 
     // Use shared filters
     const {
@@ -109,14 +145,22 @@ export default {
       try {
         loading.value = true
         const filters = getCurrentFilters()
-        const fetchedOrders = await api.getOrders(filters)
 
-        // Sort orders by order_date (earliest first)
+        // Fetch customer orders and restock orders in parallel
+        const [fetchedOrders, fetchedRestockOrders] = await Promise.all([
+          api.getOrders(filters),
+          api.getRestockOrders()
+        ])
+
+        // Sort customer orders by order_date (earliest first)
         orders.value = fetchedOrders.sort((a, b) => {
           const dateA = new Date(a.order_date)
           const dateB = new Date(b.order_date)
           return dateA - dateB
         })
+
+        // Restock orders come newest-first from the API; preserve that order
+        restockOrders.value = fetchedRestockOrders
       } catch (err) {
         error.value = 'Failed to load orders: ' + err.message
       } finally {
@@ -153,6 +197,11 @@ export default {
       })
     }
 
+    // Currency formatter for restock order totals (always USD)
+    const formatRestockCurrency = (value) => {
+      return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+    }
+
     onMounted(loadOrders)
 
     return {
@@ -160,9 +209,11 @@ export default {
       loading,
       error,
       orders,
+      restockOrders,
       getOrdersByStatus,
       getOrderStatusClass,
       formatDate,
+      formatRestockCurrency,
       currencySymbol,
       translateProductName,
       translateCustomerName

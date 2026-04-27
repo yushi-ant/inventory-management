@@ -73,13 +73,13 @@ class TestDemandEndpoints:
         # Check for the new items we added
         skus = [item["item_sku"] for item in data]
 
-        # Should have Temperature Sensor Module and Logic Controller Board
-        assert "SNR-420" in skus, "Missing Temperature Sensor Module"
-        assert "CTL-330" in skus, "Missing Logic Controller Board"
+        # Forecast SKUs are aligned with inventory so restocking can join on them
+        assert "ULS-205" in skus, "Missing Ultrasonic Distance Sensor"
+        assert "MCU-401" in skus, "Missing 8-bit Microcontroller"
 
         # Verify they are marked as stable
         for item in data:
-            if item["item_sku"] in ["SNR-420", "CTL-330"]:
+            if item["item_sku"] in ["ULS-205", "MCU-401"]:
                 assert item["trend"].lower() == "stable", \
                     f"New item {item['item_name']} should have stable trend"
 
