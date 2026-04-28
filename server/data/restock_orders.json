@@ -1,1 +1,110 @@
-[]
+[
+  {
+    "id": "c48b7ad9-3cb8-48f0-a922-f285c4fb20c1",
+    "order_number": "RST-1001",
+    "items": [
+      {
+        "sku": "TMP-201",
+        "name": "Temperature Sensor Module",
+        "quantity": 155,
+        "unit_cost": 89.5,
+        "line_total": 13872.5,
+        "quantity_on_hand": 125,
+        "forecasted_demand": 280,
+        "shortfall": 155,
+        "trend": "increasing",
+        "priority_score": 232.5
+      },
+      {
+        "sku": "PCB-001",
+        "name": "Single Layer PCB Assembly",
+        "quantity": 150,
+        "unit_cost": 24.99,
+        "line_total": 3748.5,
+        "quantity_on_hand": 450,
+        "forecasted_demand": 600,
+        "shortfall": 150,
+        "trend": "increasing",
+        "priority_score": 225.0
+      },
+      {
+        "sku": "HMD-202",
+        "name": "Humidity Sensor Module",
+        "quantity": 125,
+        "unit_cost": 125.0,
+        "line_total": 15625.0,
+        "quantity_on_hand": 95,
+        "forecasted_demand": 220,
+        "shortfall": 125,
+        "trend": "increasing",
+        "priority_score": 187.5
+      },
+      {
+        "sku": "STP-303",
+        "name": "Stepper Motor NEMA 17",
+        "quantity": 78,
+        "unit_cost": 325.0,
+        "line_total": 25350.0,
+        "quantity_on_hand": 62,
+        "forecasted_demand": 140,
+        "shortfall": 78,
+        "trend": "increasing",
+        "priority_score": 117.0
+      },
+      {
+        "sku": "PRS-203",
+        "name": "Pressure Sensor Module",
+        "quantity": 5,
+        "unit_cost": 12.75,
+        "line_total": 63.75,
+        "quantity_on_hand": 850,
+        "forecasted_demand": 855,
+        "shortfall": 5,
+        "trend": "stable",
+        "priority_score": 5.0
+      },
+      {
+        "sku": "MCU-401",
+        "name": "8-bit Microcontroller",
+        "quantity": 5,
+        "unit_cost": 8.25,
+        "line_total": 41.25,
+        "quantity_on_hand": 1200,
+        "forecasted_demand": 1205,
+        "shortfall": 5,
+        "trend": "stable",
+        "priority_score": 5.0
+      },
+      {
+        "sku": "PCB-002",
+        "name": "Dual Layer PCB Assembly",
+        "quantity": 2,
+        "unit_cost": 29.99,
+        "line_total": 59.98,
+        "quantity_on_hand": 320,
+        "forecasted_demand": 322,
+        "shortfall": 2,
+        "trend": "stable",
+        "priority_score": 2.0
+      },
+      {
+        "sku": "ULS-205",
+        "name": "Ultrasonic Distance Sensor",
+        "quantity": 2,
+        "unit_cost": 15.99,
+        "line_total": 31.98,
+        "quantity_on_hand": 680,
+        "forecasted_demand": 682,
+        "shortfall": 2,
+        "trend": "stable",
+        "priority_score": 2.0
+      }
+    ],
+    "total_cost": 58792.96,
+    "budget": 76000.0,
+    "lead_time_days": 7,
+    "submitted_at": "2026-04-27T15:18:27.663873",
+    "expected_delivery": "2026-05-04T15:18:27.663873",
+    "status": "Ordered"
+  }
+]
