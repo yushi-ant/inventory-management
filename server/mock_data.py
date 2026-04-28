@@ -17,6 +17,12 @@ def load_json_file(filename):
     with open(filepath, 'r') as f:
         return json.load(f)
 
+def save_json_file(filename, data):
+    """Persist data back to a JSON file in the data directory"""
+    filepath = os.path.join(DATA_DIR, filename)
+    with open(filepath, 'w') as f:
+        json.dump(data, f, indent=2)
+
 # Load all datasets from JSON files
 inventory_items = load_json_file('inventory.json')
 orders = load_json_file('orders.json')
@@ -34,6 +40,9 @@ recent_transactions = load_json_file('transactions.json')
 
 # Load purchase orders
 purchase_orders = load_json_file('purchase_orders.json')
+
+# Load restock orders (submitted via the Restocking tab)
+restock_orders = load_json_file('restock_orders.json')
 
 # All data is now loaded from JSON files in the data/ directory
 # This allows for easier maintenance and updates of the sample data
